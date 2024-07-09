@@ -4,13 +4,52 @@
 This guide provides steps to set up a Kaspa node on a Raspberry Pi using Rust or you could just use the image created that already has this done for you. 
 For 1 BPS an SD Card will work just fine, however you will want a Solid State Drive(SSD) when we move to 10 BPS 
 
+If you found this helpful, buy me a coffee, but really I won't use it for tha I'm saving up for a mining rig to help the network more! kaspa:qrsuu5xd6h36460gf58cswsxv069wgpsqrl3puxp3ck47k2fs4a5k2tmq5q07
+
+Because this file is so large I have to host it myself instead of making a release which was my original intention, so I'm paying for Google Drive to host it.
+
+All links outside of the google drive link hosting the pi image are affiliate links. This doesn't cost you, but it does help me, but if you don't want to use them it's ok!
+
 ## Prerequisites
 
-- Raspberry Pi 3 or 4
+- Raspberry Pi 4 or 5 preferrably 4GB+
+    - Pi 5 8GB: https://amzn.to/3xE2iyU
+    - Pi 5 4GB: https://amzn.to/3zBfo0k
+    - Pi 4 8GB: https://amzn.to/3XVwwb2
+    - Pi 4 4GB: https://amzn.to/3xRiMDK 
 - Raspberry Pi OS (latest version)
+- Case is optional, but a good idea
+    - NES SSD case for pi4: https://amzn.to/3xMJIEL I have this one and love it
+    - Metal NVMe case for Pi5: https://amzn.to/4ePp3Rb Don't get a 2.5 SSD for this it must be NVMe
+- SD card for 1BPS, but SSD for 10BPS
+    - Kingston 120GB SSD 2.5": https://amzn.to/4603Kbs
+    - Acer 256GB NVMe: https://amzn.to/3VZLAlH
+- SSD adapter for install
+    - NVMe adapter: https://amzn.to/3VZWs2U
+    - 2.5" adapter: https://amzn.to/4cR6mus
 - Internet connection
+  
+## Clone setup
 
-## Step 1: Set Up Your Raspberry Pi
+### Step 1: Download kaspad-pi.img
+
+https://drive.google.com/file/d/11zEqknho4Yo_y5miBEjM2FP9poAQRLAr/view?usp=sharing
+
+### Step 2: Download Balena Etcher
+
+https://etcher.balena.io/
+
+### Step 3: Install kaspad-pi.img onto the drive you want for the pi
+
+1. **Plug in the ssd or sdcard**
+2. **Open Balena Etcher**
+3. **Select kaspad-pi.image**
+4. **Select your drive**
+5. **Hit flash**
+
+## Manual setup
+
+### Step 1: Set Up Your Raspberry Pi
 
 1. **Install Raspberry Pi OS**
    Download and install the latest version of Raspberry Pi OS from the [Raspberry Pi website](https://www.raspberrypi.org/software/operating-systems/).
@@ -21,7 +60,7 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
    sudo apt-get upgrade
    ```
 
-## Step 2: Install Rust
+### Step 2: Install Rust
 
 1. **Install Rust**
    ```bash
@@ -34,20 +73,20 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
    source $HOME/.cargo/env
    ```
 
-## Step 3: Install Dependencies
+### Step 3: Install Dependencies
 
-1. Install general prerequisites
+1. **Install general prerequisites**
 
     ```bash
     sudo apt install curl git build-essential libssl-dev pkg-config 
     ```
 
-2. Install Protobuf (required for gRPC)
+2. **Install Protobuf (required for gRPC)**
   
     ```bash
     sudo apt install protobuf-compiler libprotobuf-dev #Required for gRPC
     ```
-3. Install the clang toolchain (required for RocksDB and WASM secp256k1 builds)
+3. **Install the clang toolchain (required for RocksDB and WASM secp256k1 builds)**
 
     ```bash
     sudo apt-get install clang-format clang-tidy \
@@ -58,30 +97,30 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
     lld lldb llvm-dev llvm-runtime \
     llvm python3-clang
     ```
-4. Install wasm-pack
+4. **Install wasm-pack**
     ```bash
     cargo install wasm-pack
     ```
-5. Install wasm32 target
+5. **Install wasm32 target**
     ```bash
     rustup target add wasm32-unknown-unknown
     ```
 
-6. Install pm2
+6. **Install pm2**
     ```bash
     sudo apt-get update
     sudo apt-get install -y nodejs npm
     sudo npm install pm2 -g
     ```
 
-## Step 4: Clone the Kaspa Node Repository
+### Step 4: Clone the Kaspa Node Repository
 
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/kaspanet/rusty-kaspa.git
    ```
 
-## Step 5: Create a startup file
+### Step 5: Create a startup file
 
 1. **Create the script that starts kaspad**
    ```bash
@@ -100,7 +139,7 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
   chmod +x ~/startup_script.sh
   ```
 
-## Step 6: Configure pm2
+### Step 6: Configure pm2
 
 1. **Start the script with pm2**
    ```bash
@@ -130,7 +169,7 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
    sudo reboot
    ```
 
-## Step 7: Monitor and Maintain
+### Step 7: Monitor and Maintain
 
 1. **Check the pm2 process**
    ```bash
@@ -144,7 +183,7 @@ For 1 BPS an SD Card will work just fine, however you will want a Solid State Dr
    ```
    This should show you that it's running properly and you should see
 
-## Optional: Create an update script(unnecessary, however ideal so you don't miss a step with pm2) 
+### Optional: Create an update script(unnecessary, however ideal so you don't miss a step with pm2) 
 
 1. **Create the script that updates kaspad**
    ```bash
