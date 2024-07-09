@@ -5,7 +5,9 @@ This guide provides steps to set up a Kaspa node on a Raspberry Pi using Rust or
 For 1 BPS an SD Card will work just fine, however you will want a Solid State Drive(SSD) when we move to 10 BPS 
 
 If you found this helpful, buy me a coffee, but really I won't use it for that since I'm saving up for a mining rig to help the network more! 
+```
 kaspa:qrsuu5xd6h36460gf58cswsxv069wgpsqrl3puxp3ck47k2fs4a5k2tmq5q07
+```
 
 Because this file is so large I have to host it myself instead of making a release which was my original intention, so I'm paying for Google Drive to host it.
 
